@@ -1,11 +1,10 @@
 const getGoods = () => {
 	const links = document.querySelectorAll('.navigation-link');
 
-	getData = () => {
+	const getData = () => {
 		fetch('./db/db.json')
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				data.forEach((data) => {
 					localStorage.setItem(data.id, JSON.stringify({ name: data.name }));
 				});
@@ -20,4 +19,4 @@ const getGoods = () => {
 	});
 };
 
-getGoods();
+export default getGoods;
