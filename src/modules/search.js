@@ -32,7 +32,6 @@ const search = () => {
 				const array = data.filter((good) =>
 					good.name.toLowerCase().includes(value.trim().toLowerCase())
 				);
-				console.log(value);
 				localStorage.setItem('goods', JSON.stringify(array));
 
 				if (window.location.pathname !== '/goods.html') {
