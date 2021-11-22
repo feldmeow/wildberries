@@ -5,6 +5,7 @@ const cart = () => {
 	const goodsContainer = document.querySelector('.long-goods-list');
 	const cartTable = document.querySelector('.cart-table__goods');
 	const modalForm = document.querySelector('.modal-form');
+	const allPrice = document.querySelector('.card-table__total');
 
 	const deleteCartItem = (id) => {
 		const cart = JSON.parse(localStorage.getItem('cart'));
@@ -62,6 +63,7 @@ const cart = () => {
 	};
 
 	const renderCartGoods = (goods) => {
+		let goodsPrice = 0;
 		cartTable.innerHTML = '';
 		goods.forEach((good) => {
 			const tr = document.createElement('tr');
@@ -71,7 +73,7 @@ const cart = () => {
 				<td><button class="cart-btn-minus"">-</button></td>
 				<td>${good.count}</td>
 				<td><button class="cart-btn-plus"">+</button></td>
-				<td>${good.price * good.count}$</td>
+				<td>${+good.price * +good.count}$</td>
 				<td><button class="cart-btn-delete"">x</button></td>											
 			`;
 
@@ -86,10 +88,14 @@ const cart = () => {
 					deleteCartItem(good.id);
 				}
 			});
+			goodsPrice += good.price * good.count;
 		});
+		allPrice.textContent = goodsPrice;
 	};
 
 	const sendForm = () => {
+		const inputName = document.getElementsByName('nameCustomer')[0];
+		const inputPhone = document.getElementsByName('phoneCustomer')[0];
 		const cartArray = localStorage.getItem('cart')
 			? JSON.parse(localStorage.getItem('cart'))
 			: [];
@@ -97,10 +103,13 @@ const cart = () => {
 			method: 'POST',
 			body: JSON.stringify({
 				cart: cartArray,
-				name: '',
-				tel: '',
+				name: inputName.value.trim(),
+				tel: inputPhone.value.trim(),
 			}),
 		}).then(() => {
+			inputName.value = '';
+			inputPhone.value = '';
+			localStorage.removeItem('cart');
 			modalCart.style.display = '';
 		});
 	};
