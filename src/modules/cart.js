@@ -8,6 +8,16 @@ const cart = () => {
 	btnCartClose.addEventListener('click', () => {
 		modalCart.style.display = '';
 	});
+	modalCart.addEventListener('click', (e) => {
+		if (!e.target.closest('.modal')) {
+			modalCart.style.display = '';
+		}
+	});
+	window.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			modalCart.style.display = '';
+		}
+	});
 };
 
 export default cart;
