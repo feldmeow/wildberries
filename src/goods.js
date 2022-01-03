@@ -5,4 +5,5 @@ import smoothScroll from './modules/smoothScroll';
 cart();
 getGoods();
 search();
+
 smoothScroll();
